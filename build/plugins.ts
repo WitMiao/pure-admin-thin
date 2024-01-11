@@ -1,14 +1,15 @@
-import { cdn } from "./cdn";
 import vue from "@vitejs/plugin-vue";
-import { viteBuildInfo } from "./info";
-import svgLoader from "vite-svg-loader";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import { viteMockServe } from "vite-plugin-mock";
+import svgLoader from "vite-svg-loader";
+import { cdn } from "./cdn";
 import { configCompressPlugin } from "./compress";
+import { viteBuildInfo } from "./info";
 // import ElementPlus from "unplugin-element-plus/vite";
-import { visualizer } from "rollup-plugin-visualizer";
-import removeConsole from "vite-plugin-remove-console";
 import themePreprocessorPlugin from "@pureadmin/theme";
+import { visualizer } from "rollup-plugin-visualizer";
+import UnoCSS from "unocss/vite";
+import removeConsole from "vite-plugin-remove-console";
 import { genScssMultipleScopeVars } from "../src/layout/theme";
 
 export function getPluginsList(
@@ -22,6 +23,7 @@ export function getPluginsList(
     vue(),
     // jsx、tsx语法支持
     vueJsx(),
+    UnoCSS(),
     VITE_CDN ? cdn : null,
     configCompressPlugin(VITE_COMPRESSION),
     // 线上环境删除console

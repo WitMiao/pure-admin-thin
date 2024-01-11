@@ -1,13 +1,13 @@
-import App from "./App.vue";
-import router from "./router";
 import { setupStore } from "@/store";
-import ElementPlus from "element-plus";
-import { getServerConfig } from "./config";
-import { createApp, Directive } from "vue";
 import { MotionPlugin } from "@vueuse/motion";
+import ElementPlus from "element-plus";
+import "uno.css";
+import { createApp, Directive } from "vue";
+import App from "./App.vue";
+import { getServerConfig } from "./config";
+import router from "./router";
 // import { useEcharts } from "@/plugins/echarts";
 import { injectResponsiveStorage } from "@/utils/responsive";
-
 // import Table from "@pureadmin/table";
 // import PureDescriptions from "@pureadmin/descriptions";
 
@@ -15,12 +15,12 @@ import { injectResponsiveStorage } from "@/utils/responsive";
 import "./style/reset.scss";
 // 导入公共样式
 import "./style/index.scss";
-// 一定要在main.ts中导入tailwind.css，防止vite每次hmr都会请求src/style/index.scss整体css文件导致热更新慢的问题
-import "./style/tailwind.css";
 import "element-plus/dist/index.css";
+// 一定要在main.ts中导入unocss.css，防止vite每次hmr都会请求src/style/index.scss整体css文件导致热更新慢的问题
+import "./style/unocss.css";
 // 导入字体图标
-import "./assets/iconfont/iconfont.js";
 import "./assets/iconfont/iconfont.css";
+import "./assets/iconfont/iconfont.js";
 
 const app = createApp(App);
 
@@ -32,9 +32,9 @@ Object.keys(directives).forEach(key => {
 
 // 全局注册`@iconify/vue`图标库
 import {
+  FontIcon,
   IconifyIconOffline,
-  IconifyIconOnline,
-  FontIcon
+  IconifyIconOnline
 } from "./components/ReIcon";
 app.component("IconifyIconOffline", IconifyIconOffline);
 app.component("IconifyIconOnline", IconifyIconOnline);

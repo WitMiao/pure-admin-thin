@@ -68,6 +68,7 @@
     "@types/sortablejs": "^1.15.1",
     "@typescript-eslint/eslint-plugin": "^5.60.0",
     "@typescript-eslint/parser": "^5.60.0",
+    "@unocss/transformer-directives": "^0.58.3",
     "@vitejs/plugin-vue": "^4.2.3",
     "@vitejs/plugin-vue-jsx": "^3.0.1",
     "@vue/eslint-config-prettier": "^7.1.0",
@@ -103,9 +104,9 @@
     "stylelint-prettier": "^3.0.0",
     "stylelint-scss": "^5.0.1",
     "svgo": "^3.0.2",
-    "tailwindcss": "^3.3.2",
     "terser": "^5.18.1",
     "typescript": "5.0.4",
+    "unocss": "^0.58.3",
     "vite": "^4.3.9",
     "vite-plugin-cdn-import": "^0.3.5",
     "vite-plugin-compression": "^0.5.1",
@@ -129,7 +130,7 @@
       "stable": "*"
     }
   },
-  "repository": "git@github.com:pure-admin/pure-admin-thin.git",
-  "author": "xiaoxian521",
+  "repository": "git@github.com:WitMiao/pure-admin-thin.git",
+  "author": "WitMiao",
   "license": "MIT"
 }
