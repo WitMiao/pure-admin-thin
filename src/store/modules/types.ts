@@ -1,4 +1,4 @@
-import { RouteRecordName } from "vue-router";
+import type { RouteRecordName } from "vue-router";
 
 export type cacheType = {
   mode: string;
@@ -19,6 +19,7 @@ export type appType = {
   };
   layout: string;
   device: string;
+  viewportSize: { width: number; height: number };
 };
 
 export type multiType = {
@@ -38,4 +39,6 @@ export type setType = {
 export type userType = {
   username?: string;
   roles?: Array<string>;
+  isRemembered?: boolean;
+  loginDay?: number;
 };

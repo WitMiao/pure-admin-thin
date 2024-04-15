@@ -1,12 +1,12 @@
 import { setupStore } from "@/store";
 import { MotionPlugin } from "@vueuse/motion";
-import ElementPlus from "element-plus";
 import "uno.css";
-import { createApp, Directive } from "vue";
+import { createApp, type Directive } from "vue";
 import App from "./App.vue";
-import { getServerConfig } from "./config";
+import { getPlatformConfig } from "./config";
 import router from "./router";
 // import { useEcharts } from "@/plugins/echarts";
+import { useElementPlus } from "@/plugins/elementPlus";
 import { injectResponsiveStorage } from "@/utils/responsive";
 // import Table from "@pureadmin/table";
 // import PureDescriptions from "@pureadmin/descriptions";
@@ -14,8 +14,8 @@ import { injectResponsiveStorage } from "@/utils/responsive";
 // 引入重置样式
 import "./style/reset.scss";
 // 导入公共样式
-import "./style/index.scss";
 import "element-plus/dist/index.css";
+import "./style/index.scss";
 // 一定要在main.ts中导入unocss.css，防止vite每次hmr都会请求src/style/index.scss整体css文件导致热更新慢的问题
 import "./style/unocss.css";
 // 导入字体图标
@@ -30,7 +30,7 @@ Object.keys(directives).forEach(key => {
   app.directive(key, (directives as { [key: string]: Directive })[key]);
 });
 
-// 全局注册`@iconify/vue`图标库
+// 全局注册@iconify/vue图标库
 import {
   FontIcon,
   IconifyIconOffline,
@@ -44,14 +44,19 @@ app.component("FontIcon", FontIcon);
 import { Auth } from "@/components/ReAuth";
 app.component("Auth", Auth);
 
-getServerConfig(app).then(async config => {
+// 全局注册vue-tippy
+import "tippy.js/dist/tippy.css";
+import "tippy.js/themes/light.css";
+import VueTippy from "vue-tippy";
+app.use(VueTippy);
+
+getPlatformConfig(app).then(async config => {
+  setupStore(app);
   app.use(router);
   await router.isReady();
   injectResponsiveStorage(app, config);
-  setupStore(app);
-  app.use(MotionPlugin).use(ElementPlus);
+  app.use(MotionPlugin).use(useElementPlus);
+  // .use(PureDescriptions)
   // .use(useEcharts);
-  // .use(Table);
-  // .use(PureDescriptions);
   app.mount("#app");
 });
