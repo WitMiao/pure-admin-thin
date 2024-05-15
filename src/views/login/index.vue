@@ -28,8 +28,8 @@ const ruleFormRef = ref<FormInstance>();
 const { initStorage } = useLayout();
 initStorage();
 
-const { dataTheme, dataThemeChange } = useDataThemeChange();
-dataThemeChange();
+const { dataTheme, overallStyle, dataThemeChange } = useDataThemeChange();
+dataThemeChange(overallStyle.value);
 const { title } = useNav();
 
 const ruleForm = reactive({
@@ -57,8 +57,6 @@ const onLogin = async (formEl: FormInstance | undefined) => {
           }
         })
         .finally(() => (loading.value = false));
-    } else {
-      return fields;
     }
   });
 };
