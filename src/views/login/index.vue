@@ -1,85 +1,87 @@
 <script setup lang="ts">
-import Motion from "./utils/motion";
-import { useRouter } from "vue-router";
-import { message } from "@/utils/message";
-import { loginRules } from "./utils/rule";
-import { useNav } from "@/layout/hooks/useNav";
-import type { FormInstance } from "element-plus";
-import { useLayout } from "@/layout/hooks/useLayout";
-import { useUserStoreHook } from "@/store/modules/user";
-import { initRouter, getTopMenu } from "@/router/utils";
-import { bg, avatar, illustration } from "./utils/static";
-import { useRenderIcon } from "@/components/ReIcon/src/hooks";
-import { ref, reactive, toRaw, onMounted, onBeforeUnmount } from "vue";
-import { useDataThemeChange } from "@/layout/hooks/useDataThemeChange";
+import { useRouter } from 'vue-router'
+import type { FormInstance } from 'element-plus'
+import { onBeforeUnmount, onMounted, reactive, ref, toRaw } from 'vue'
+import Lock from '@iconify-icons/ri/lock-fill'
+import User from '@iconify-icons/ri/user-3-fill'
+import Motion from './utils/motion'
+import { loginRules } from './utils/rule'
+import { avatar, bg, illustration } from './utils/static'
+import { message } from '@/utils/message'
+import { useNav } from '@/layout/hooks/useNav'
+import { useLayout } from '@/layout/hooks/useLayout'
+import { useUserStoreHook } from '@/store/modules/user'
+import { getTopMenu, initRouter } from '@/router/utils'
+import { useRenderIcon } from '@/components/ReIcon/src/hooks'
+import { useDataThemeChange } from '@/layout/hooks/useDataThemeChange'
 
-import dayIcon from "@/assets/svg/day.svg?component";
-import darkIcon from "@/assets/svg/dark.svg?component";
-import Lock from "@iconify-icons/ri/lock-fill";
-import User from "@iconify-icons/ri/user-3-fill";
+import dayIcon from '@/assets/svg/day.svg?component'
+import darkIcon from '@/assets/svg/dark.svg?component'
 
 defineOptions({
-  name: "Login"
-});
-const router = useRouter();
-const loading = ref(false);
-const ruleFormRef = ref<FormInstance>();
+  name: 'Login',
+})
+const router = useRouter()
+const loading = ref(false)
+const ruleFormRef = ref<FormInstance>()
 
-const { initStorage } = useLayout();
-initStorage();
+const { initStorage } = useLayout()
+initStorage()
 
-const { dataTheme, overallStyle, dataThemeChange } = useDataThemeChange();
-dataThemeChange(overallStyle.value);
-const { title } = useNav();
+const { dataTheme, overallStyle, dataThemeChange } = useDataThemeChange()
+dataThemeChange(overallStyle.value)
+const { title } = useNav()
 
 const ruleForm = reactive({
-  username: "admin",
-  password: "admin123"
-});
+  username: 'admin',
+  password: 'admin123',
+})
 
-const onLogin = async (formEl: FormInstance | undefined) => {
-  if (!formEl) return;
-  await formEl.validate((valid, fields) => {
+async function onLogin(formEl: FormInstance | undefined) {
+  if (!formEl)
+    return
+  await formEl.validate((valid) => {
     if (valid) {
-      loading.value = true;
+      loading.value = true
       useUserStoreHook()
-        .loginByUsername({ username: ruleForm.username, password: "admin123" })
-        .then(res => {
+        .loginByUsername({ username: ruleForm.username, password: 'admin123' })
+        .then((res) => {
           if (res.success) {
             // 获取后端路由
             return initRouter().then(() => {
               router.push(getTopMenu(true).path).then(() => {
-                message("登录成功", { type: "success" });
-              });
-            });
-          } else {
-            message("登录失败", { type: "error" });
+                message('登录成功', { type: 'success' })
+              })
+            })
+          }
+          else {
+            message('登录失败', { type: 'error' })
           }
         })
-        .finally(() => (loading.value = false));
+        .finally(() => (loading.value = false))
     }
-  });
-};
+  })
+}
 
 /** 使用公共函数，避免`removeEventListener`失效 */
 function onkeypress({ code }: KeyboardEvent) {
-  if (code === "Enter") {
-    onLogin(ruleFormRef.value);
+  if (['Enter', 'NumpadEnter'].includes(code)) {
+    onLogin(ruleFormRef.value)
   }
 }
 
 onMounted(() => {
-  window.document.addEventListener("keypress", onkeypress);
-});
+  window.document.addEventListener('keypress', onkeypress)
+})
 
 onBeforeUnmount(() => {
-  window.document.removeEventListener("keypress", onkeypress);
-});
+  window.document.removeEventListener('keypress', onkeypress)
+})
 </script>
 
 <template>
   <div class="select-none">
-    <img :src="bg" class="wave" />
+    <img :src="bg" class="wave">
     <div class="flex-c absolute right-5 top-3">
       <!-- 主题 -->
       <el-switch
@@ -98,7 +100,9 @@ onBeforeUnmount(() => {
         <div class="login-form">
           <avatar class="avatar" />
           <Motion>
-            <h2 class="outline-none">{{ title }}</h2>
+            <h2 class="outline-none">
+              {{ title }}
+            </h2>
           </Motion>
 
           <el-form
@@ -113,8 +117,8 @@ onBeforeUnmount(() => {
                   {
                     required: true,
                     message: '请输入账号',
-                    trigger: 'blur'
-                  }
+                    trigger: 'blur',
+                  },
                 ]"
                 prop="username"
               >
@@ -141,7 +145,7 @@ onBeforeUnmount(() => {
 
             <Motion :delay="250">
               <el-button
-                class="w-full mt-4"
+                class="mt-4 w-full"
                 size="default"
                 type="primary"
                 :loading="loading"
@@ -158,7 +162,7 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-@import url("@/style/login.css");
+@import url('@/style/login.css');
 </style>
 
 <style lang="scss" scoped>

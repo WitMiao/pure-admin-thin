@@ -195,7 +195,7 @@
       inset: 0 8px;
       margin: 4px 0;
       clear: both;
-      content: "";
+      content: '';
       background: var(--el-color-primary) !important;
       border-radius: 3px;
     }
@@ -217,7 +217,7 @@
       width: 2px;
       height: 100%;
       clear: both;
-      content: "";
+      content: '';
       background-color: $menuActiveBefore;
       transition: all var(--pure-transition-duration) ease-in-out;
       transform: translateY(0);
@@ -229,7 +229,7 @@
       display: block;
       width: 3px;
       height: 0;
-      content: "";
+      content: '';
       transform: translateY(-50%);
     }
 
@@ -244,7 +244,7 @@
       inset: 0 8px;
       margin: 4px 0;
       clear: both;
-      content: "";
+      content: '';
       background: var(--el-color-primary) !important;
       border-radius: 3px;
     }
@@ -311,7 +311,7 @@
       position: absolute;
       inset: 0 8px;
       clear: both;
-      content: "";
+      content: '';
       background: var(--el-color-primary) !important;
       border-radius: 3px;
     }
@@ -403,7 +403,7 @@
       position: absolute;
       inset: 0 5px;
       clear: both;
-      content: "";
+      content: '';
       background: var(--el-color-primary) !important;
       border-radius: 3px;
     }
@@ -560,6 +560,7 @@
     }
 
     .sidebar-container {
+      z-index: 2001;
       width: $sideBarWidth;
       transition: transform var(--pure-transition-duration);
     }
@@ -574,7 +575,7 @@
   }
 }
 
-body[layout="vertical"] {
+body[layout='vertical'] {
   $sideBarWidth: 210px;
 
   @include merge-style($sideBarWidth);
@@ -649,7 +650,7 @@ body[layout="vertical"] {
   }
 }
 
-body[layout="horizontal"] {
+body[layout='horizontal'] {
   $sideBarWidth: 0;
 
   @include merge-style($sideBarWidth);
@@ -664,7 +665,7 @@ body[layout="horizontal"] {
   }
 }
 
-body[layout="mix"] {
+body[layout='mix'] {
   $sideBarWidth: 210px;
 
   @include merge-style($sideBarWidth);
