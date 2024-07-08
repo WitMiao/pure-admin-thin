@@ -2,7 +2,6 @@ import process from 'node:process'
 import vue from '@vitejs/plugin-vue'
 import svgLoader from 'vite-svg-loader'
 import type { PluginOption } from 'vite'
-import checker from 'vite-plugin-checker'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import Inspector from 'vite-plugin-vue-inspector'
 import removeNoMatch from 'vite-plugin-router-warn'
@@ -11,10 +10,12 @@ import removeConsole from 'vite-plugin-remove-console'
 import { themePreprocessorPlugin } from '@pureadmin/theme'
 import { vitePluginFakeServer } from 'vite-plugin-fake-server'
 import UnoCSS from 'unocss/vite'
+import Components from 'unplugin-vue-components/vite'
+import AutoImport from 'unplugin-auto-import/vite'
+import { VueRouterAutoImports } from 'unplugin-vue-router'
 import { genScssMultipleScopeVars } from '../src/layout/theme'
 import { viteBuildInfo } from './info'
 import { configCompressPlugin } from './compress'
-import { pathResolve } from './utils'
 import { cdn } from './cdn'
 
 export function getPluginsList(
@@ -26,18 +27,36 @@ export function getPluginsList(
     vue(),
     // jsx、tsx语法支持
     vueJsx(),
-    checker({
-      typescript: true,
-      vueTsc: true,
-      eslint: {
-        lintCommand: `eslint ${pathResolve('../{src,mock,build}/**/*.{vue,js,ts,tsx}')}`,
-        useFlatConfig: true,
-      },
-      terminal: false,
-      enableBuild: false,
-    }),
     // 按下Command(⌘)+Shift(⇧)，然后点击页面元素会自动打开本地IDE并跳转到对应的代码位置
     Inspector(),
+    AutoImport({
+      imports: [
+        'vue',
+        'vue-i18n',
+        '@vueuse/head',
+        '@vueuse/core',
+        VueRouterAutoImports,
+        {
+          // add any other imports you were relying on
+          'vue-router/auto': ['useLink'],
+        },
+      ],
+      dts: 'src/auto-imports.d.ts',
+      dirs: [
+        'src/composables',
+        'src/stores',
+      ],
+      vueTemplate: true,
+    }),
+    // unplugin-vue-components
+    Components({
+      // allow auto load components under `./src/components/`
+      extensions: ['vue'],
+      // allow auto import and register components
+      include: [/\.vue$/, /\.vue\?vue/],
+      dts: 'src/components.d.ts',
+    }),
+    // unocss
     UnoCSS(),
     viteBuildInfo(),
     /**

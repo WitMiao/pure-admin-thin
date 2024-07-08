@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router'
 import type { FormInstance } from 'element-plus'
-import { onBeforeUnmount, onMounted, reactive, ref, toRaw } from 'vue'
 import Lock from '@iconify-icons/ri/lock-fill'
 import User from '@iconify-icons/ri/user-3-fill'
 import Motion from './utils/motion'

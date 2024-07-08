@@ -1,18 +1,22 @@
 <script setup lang="ts">
-import { hasAuth, getAuths } from "@/router/utils";
+import { getAuths, hasAuth } from '@/router/utils'
 
 defineOptions({
-  name: "PermissionButton"
-});
+  name: 'PermissionButton',
+})
 </script>
 
 <template>
   <div>
-    <p class="mb-2">当前拥有的code列表：{{ getAuths() }}</p>
+    <p class="mb-2">
+      当前拥有的code列表：{{ getAuths() }}
+    </p>
 
     <el-card shadow="never" class="mb-2">
       <template #header>
-        <div class="card-header">组件方式判断权限</div>
+        <div class="card-header">
+          组件方式判断权限
+        </div>
       </template>
       <el-space wrap>
         <Auth value="permission:btn:add">
@@ -29,7 +33,7 @@ defineOptions({
           :value="[
             'permission:btn:add',
             'permission:btn:edit',
-            'permission:btn:delete'
+            'permission:btn:delete',
           ]"
         >
           <el-button plain type="danger">
@@ -42,7 +46,9 @@ defineOptions({
 
     <el-card shadow="never" class="mb-2">
       <template #header>
-        <div class="card-header">函数方式判断权限</div>
+        <div class="card-header">
+          函数方式判断权限
+        </div>
       </template>
       <el-space wrap>
         <el-button v-if="hasAuth('permission:btn:add')" plain type="warning">
@@ -56,7 +62,7 @@ defineOptions({
             hasAuth([
               'permission:btn:add',
               'permission:btn:edit',
-              'permission:btn:delete'
+              'permission:btn:delete',
             ])
           "
           plain
@@ -85,7 +91,7 @@ defineOptions({
           v-auth="[
             'permission:btn:add',
             'permission:btn:edit',
-            'permission:btn:delete'
+            'permission:btn:delete',
           ]"
           plain
           type="danger"
