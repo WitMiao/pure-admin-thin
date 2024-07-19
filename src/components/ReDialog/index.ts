@@ -1,4 +1,3 @@
-import { withInstall } from '@pureadmin/utils'
 import reDialog from './index.vue'
 import type {
   ArgsType,

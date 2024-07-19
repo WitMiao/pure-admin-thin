@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { getAuths, hasAuth } from '@/router/utils'
-
 defineOptions({
   name: 'PermissionButton',
 })
@@ -9,7 +7,7 @@ defineOptions({
 <template>
   <div>
     <p class="mb-2">
-      当前拥有的code列表：{{ getAuths() }}
+      <ReText> 当前拥有的code列表：{{ getAuths() }}  </ReText>
     </p>
 
     <el-card shadow="never" class="mb-2">

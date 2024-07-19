@@ -13,6 +13,9 @@ import UnoCSS from 'unocss/vite'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
+import {
+  ElementPlusResolver,
+} from 'unplugin-vue-components/resolvers'
 import { genScssMultipleScopeVars } from '../src/layout/theme'
 import { viteBuildInfo } from './info'
 import { configCompressPlugin } from './compress'
@@ -35,16 +38,23 @@ export function getPluginsList(
         'vue-i18n',
         '@vueuse/head',
         '@vueuse/core',
+        'pinia',
         VueRouterAutoImports,
         {
           // add any other imports you were relying on
           'vue-router/auto': ['useLink'],
+          '@pureadmin/utils': ['withInstall'],
         },
       ],
-      dts: 'src/auto-imports.d.ts',
+      dts: 'types/auto-imports.d.ts',
       dirs: [
-        'src/composables',
+        'src/utils',
         'src/stores',
+        'src/config',
+        'src/store/modules',
+        'src/router',
+        'src/layout',
+        'src/layout/hooks',
       ],
       vueTemplate: true,
     }),
@@ -52,9 +62,12 @@ export function getPluginsList(
     Components({
       // allow auto load components under `./src/components/`
       extensions: ['vue'],
+      resolvers: [ElementPlusResolver()],
+      dirs: ['src/components', 'src/layout/components'],
+      deep: true,
       // allow auto import and register components
       include: [/\.vue$/, /\.vue\?vue/],
-      dts: 'src/components.d.ts',
+      dts: 'types/components.d.ts',
     }),
     // unocss
     UnoCSS(),

@@ -177,9 +177,6 @@ importers:
       postcss-scss:
         specifier: ^4.0.9
         version: 4.0.9(postcss@8.4.39)
-      prettier:
-        specifier: ^3.3.2
-        version: 3.3.2
       rimraf:
         specifier: ^5.0.7
         version: 5.0.7

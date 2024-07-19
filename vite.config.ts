@@ -1,6 +1,5 @@
 import { type ConfigEnv, type UserConfigExport, loadEnv } from 'vite'
 import { getPluginsList } from './build/plugins'
-import { exclude, include } from './build/optimize'
 import {
   __APP_INFO__,
   alias,
@@ -32,10 +31,10 @@ export default ({ mode }: ConfigEnv): UserConfigExport => {
     },
     plugins: getPluginsList(VITE_CDN, VITE_COMPRESSION),
     // https://cn.vitejs.dev/config/dep-optimization-options.html#dep-optimization-options
-    optimizeDeps: {
-      include,
-      exclude,
-    },
+    // optimizeDeps: {
+    //   include,
+    //   exclude,
+    // },
     build: {
       // https://cn.vitejs.dev/guide/build.html#browser-compatibility
       target: 'es2015',
